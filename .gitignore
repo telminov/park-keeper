@@ -2,3 +2,4 @@
 backend/virt_env
 backend/project/settings.py
 backend/*.sqlite3
+backend/supervisord.log
