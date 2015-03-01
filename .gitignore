@@ -1,0 +1,4 @@
+.idea
+backend/virt_env
+backend/project/settings.py
+backend/*.sqlite3
