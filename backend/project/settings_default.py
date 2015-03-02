@@ -41,6 +41,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'parkkeeper.middleware.XsSharing',  # TODO: move out to external utils repo
 )
 
 ROOT_URLCONF = 'project.urls'

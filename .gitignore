@@ -7,4 +7,5 @@ backend/supervisord.pid
 frontent/node_modules
 frontent/bower_components
 frontent/src/app/**/*.js
-frontent/src/utils/**/*.js
+frontent/utils/**/*.js
+frontent/utils/styles/utils.css

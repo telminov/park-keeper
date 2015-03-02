@@ -1,3 +1,4 @@
 angular.module('parkKeeper')
-.controller 'MainCtrl', ($scope) ->
-    console.log 'MainCtrl ok'
+.controller 'MainCtrl', ($scope, State) ->
+    # TODO: add "loading" directive using
+    $scope.states = State.query()

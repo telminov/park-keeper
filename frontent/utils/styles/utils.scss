@@ -1,0 +1,24 @@
+.sw-loading-container {
+    position: relative;
+
+    .loading {
+        &:before, &:after {
+            content: " ";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            min-height: 50px;
+            min-width: 50px;
+        }
+        &:before {
+            background-color: white;
+            opacity: 0.5;
+        }
+        &:after {
+          background: url('../img/spinner.gif') no-repeat center center;
+          z-index: 100;
+        }
+    }
+}

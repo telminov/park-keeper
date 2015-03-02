@@ -2,11 +2,13 @@
 <html lang="en" ng-app="parkKeeper">
     <head>
         <meta charset="utf-8">
-        <title ng-bind="'Park Keeper' + swTitle.getTitle()"></title>
         <link rel="icon" href="img/fav.ico">
 
-        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-        <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+        <title ng-bind="'Park Keeper ' + swTitle.getTitle()"></title>
+
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="utils/styles/utils.css">
+
     </head>
 
     <body>
@@ -27,10 +29,13 @@
         <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 
-        <script src="src/utils/app.js"></script>
-        <script src="src/utils/services.js"></script>
+        <script src="utils/app.js"></script>
+        <script src="utils/directives.js"></script>
+        <script src="utils/filters.js"></script>
+        <script src="utils/services.js"></script>
 
         <script src="src/app/app.js"></script>
+        <script src="src/app/resources/state.js"></script>
         <script src="src/app/controllers/main.js"></script>
     </body>
 </html>
