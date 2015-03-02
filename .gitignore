@@ -3,3 +3,8 @@ backend/virt_env
 backend/project/settings.py
 backend/*.sqlite3
 backend/supervisord.log
+backend/supervisord.pid
+frontent/node_modules
+frontent/bower_components
+frontent/src/app/**/*.js
+frontent/src/utils/**/*.js

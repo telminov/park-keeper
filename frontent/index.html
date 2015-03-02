@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" ng-app="parkKeeper">
+    <head>
+        <meta charset="utf-8">
+        <title ng-bind="'Park Keeper' + swTitle.getTitle()"></title>
+        <link rel="icon" href="img/fav.ico">
+
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <div ng-view></div>
+        </div>
+
+
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+
+        <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+        <script src="src/utils/app.js"></script>
+        <script src="src/utils/services.js"></script>
+
+        <script src="src/app/app.js"></script>
+        <script src="src/app/controllers/main.js"></script>
+    </body>
+</html>
