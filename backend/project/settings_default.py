@@ -82,6 +82,14 @@ DATABASES = {
     }
 }
 
+MONGODB = {
+    'NAME': 'parkkeeper',
+    'HOST': 'localhost',
+    'PORT': '27017',
+    'USER': None,
+    'PASSWORD': None,
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
