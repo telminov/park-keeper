@@ -85,11 +85,12 @@ DATABASES = {
 MONGODB = {
     'NAME': 'parkkeeper',
     'HOST': 'localhost',
-    'PORT': '27017',
+    'PORT': 27017,
     'USER': None,
     'PASSWORD': None,
 }
-
+# import mongoengine
+# mongoengine.connect(MONGODB['NAME'], host='mongodb://%s:%s/%s' % (MONGODB['HOST'], MONGODB.get('PORT', 27017), MONGODB['NAME']))
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
