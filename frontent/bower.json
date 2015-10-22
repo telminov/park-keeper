@@ -1,19 +1,19 @@
 {
   "name": "park-keeper",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "devDependencies": {},
   "dependencies": {
-    "bootstrap": "3.1.1",
-    "jquery": "2.1.3",
-    "angular": "1.3.8",
-    "angular-resource": "1.3.8",
-    "angular-sanitize": "1.3.8",
-    "angular-route": "1.3.8",
-    "angular-animate": "1.3.8",
-    "angular-bootstrap": "0.12.1",
+    "bootstrap": "3.3.5",
+    "jquery": "2.1.4",
+    "angular": "1.4.7",
+    "angular-resource": "1.4.7",
+    "angular-sanitize": "1.4.7",
+    "angular-route": "1.4.7",
+    "angular-animate": "1.4.7",
+    "angular-bootstrap": "0.14.2",
     "sw-angular-utils": ""
   },
   "resolutions": {
-    "angular": "1.3.8"
+    "angular": "1.4.7"
   }
 }

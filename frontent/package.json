@@ -1,7 +1,7 @@
 {
   "name": "park-keeper",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "devDependencies": {
-    "bower": "1.3.12"
+    "bower": ""
   }
 }
