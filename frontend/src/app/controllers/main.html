@@ -1,1 +1,88 @@
-<h1>Hello!</h1>
+<div class="row">
+    <div class="col-xs-6">
+        <table class="table table-hover table-condensed">
+            <!--<thead>
+                <tr>
+                    <th>Monitoring</th>
+                    <th>Status</th>
+                    <th>Last check</th>
+                </tr>
+            </thead>-->
+            <tbody>
+                <tr>
+                    <td>
+                        ping all hosts
+                        <span class="note">5 hosts</span>
+                    </td>
+                    <td>
+                        <span class="label label-success">ok</span>
+                    </td>
+                    <td tooltip="2015-10-23 10:00:05">
+                        30 sec
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ping all hosts
+                        <span class="note">5 hosts</span>
+                    </td>
+                    <td>
+                        <span class="label label-success">ok</span>
+                    </td>
+                    <td tooltip="2015-10-23 10:00:05">
+                        30 sec
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-xs-3 col-xs-offset-1">
+        <div class="row">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h4>Task queue</h4>
+                </li>
+
+                <li class="list-group-item">
+                    <span class="badge">15</span>
+                    ping all hosts
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">9</span>
+                    check mysql
+                </li>
+            </ul>
+        </div>
+
+        <div class="row">
+            <table class="table table-hover table-condensed">
+                <tbody>
+                    <tr class="info">
+                        <td>
+                            <span class="label label-default">MacBook</span>
+                            worker 1
+                        </td>
+                        <td>ping all hosts</td>
+                        <td><span class="note">localhost</span></td>
+                    </tr>
+                    <tr class="info">
+                        <td>
+                            <span class="label label-default">MacBook</span>
+                            worker 2
+                        </td>
+                        <td>ping all hosts</td>
+                        <td><span class="note">portal</span></td>
+                    </tr>
+                    <tr class="active">
+                        <td>
+                            <span class="label label-default">MacBook</span>
+                            worker 3
+                        </td>
+                        <td>waiting</td>
+                        <td></td>
+                    </tr>
+            </table>
+        </div>
+    </div>
+</div>

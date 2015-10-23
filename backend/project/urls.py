@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^', include('parkkeeper.urls')),
 ]
 
+urlpatterns += static('styles', document_root=settings.BASE_DIR + '/../frontend/styles')
 urlpatterns += static('dist', document_root=settings.BASE_DIR + '/../frontend/dist')
 urlpatterns += static('bower_components', document_root=settings.BASE_DIR + '/../frontend/bower_components')
