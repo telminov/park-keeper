@@ -2,8 +2,8 @@
 backend/virt_env
 backend/project/settings.py
 backend/*.sqlite3
-frontent/node_modules
-frontent/bower_components
-frontent/src/app/**/*.js
-frontent/utils/**/*.js
-frontent/utils/styles/utils.css
+frontend/node_modules
+frontend/bower_components
+frontend/src/app/**/*.js
+frontend/utils/**/*.js
+frontend/utils/styles/utils.css

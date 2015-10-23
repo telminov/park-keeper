@@ -12,7 +12,7 @@ angular.module('parkKeeper', [
 .config ($routeProvider) ->
     $routeProvider
     .when('/',
-      templateUrl: 'src/app/controllers/main.html'
+      templateUrl: 'controllers/main.html'
       controller: 'MainCtrl'
       label: ''
     )
