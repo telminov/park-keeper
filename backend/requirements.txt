@@ -3,3 +3,4 @@ sw-python-utils==0.0.3
 sw-django-utils==0.0.9
 pymysql==0.6.7
 mongoengine==0.10.0
+pyzmq==14.7.0
