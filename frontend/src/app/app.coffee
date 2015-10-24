@@ -7,6 +7,7 @@ angular.module('parkKeeper', [
     'ui.bootstrap'
 
     'swUtils'
+    'swWebSocket'
 ])
 
 .config ($routeProvider) ->

@@ -11,7 +11,8 @@
     "angular-route": "1.4.7",
     "angular-animate": "1.4.7",
     "angular-bootstrap": "0.14.2",
-    "sw-angular-utils": "0.0.5"
+    "sw-angular-utils": "0.0.5",
+    "sw-angular-websocket": "~0.0.1"
   },
   "resolutions": {
     "angular": "1.4.7"

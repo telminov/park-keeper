@@ -20,7 +20,8 @@ var paths = {
             'bower_components/angular-animate/angular-animate.min.js',
             'bower_components/angular-bootstrap/ui-bootstrap.min.js',
             'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-            'bower_components/sw-angular-utils/sw-angular-utils.js'
+            'bower_components/sw-angular-utils/sw-angular-utils.js',
+            'bower_components/sw-angular-websocket/sw-angular-websocket.js'
         ],
         app: './src/**/*.coffee'
     },
