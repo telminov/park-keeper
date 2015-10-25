@@ -3,9 +3,9 @@
 </div>
 
 <div>
-    <alert ng-repeat="error in loginErrors" type="danger" close="closeAlert($index)">
+    <uib-alert ng-repeat="error in loginErrors" type="danger" close="closeAlert($index)">
         {{ error }}
-    </alert>
+    </uib-alert>
 
     <h1>Login</h1>
     <form class="form-horizontal authentication" ng-submit="logIn()">

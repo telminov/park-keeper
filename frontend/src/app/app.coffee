@@ -42,3 +42,6 @@ angular.module('parkKeeper', [
     authConfigProvider.setSystemLabel('parkKeeper')
     authConfigProvider.setServerAddress(config.serverAddress)
     authConfigProvider.setFreeUrls([])
+
+.config ($httpProvider) ->
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
