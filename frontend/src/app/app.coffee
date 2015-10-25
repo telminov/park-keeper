@@ -8,6 +8,7 @@ angular.module('parkKeeper', [
 
     'swUtils'
     'swWebSocket'
+    'swAuth'
 ])
 
 .config ($routeProvider) ->
@@ -18,6 +19,17 @@ angular.module('parkKeeper', [
       label: ''
     )
 
+    .when('/login/',
+        templateUrl: 'controllers/login.html'
+        controller: 'AuthLoginCtrl'
+        label: 'Login'
+    )
+    .when('/logout/',
+        templateUrl: 'controllers/logout.html'
+        controller: 'AuthLogoutCtrl'
+        label: 'Logout'
+    )
+
 .run ($location, $rootScope, swTitle) ->
     $rootScope.swTitle = swTitle
     $rootScope.$on '$routeChangeSuccess', (event, current, previous) ->
@@ -25,3 +37,8 @@ angular.module('parkKeeper', [
         swTitle.setTitleBase(baseTitle)
         swTitle.setTitleStart('')
         swTitle.setTitleEnd('')
+
+.config (authConfigProvider, config) ->
+    authConfigProvider.setSystemLabel('parkKeeper')
+    authConfigProvider.setServerAddress(config.serverAddress)
+    authConfigProvider.setFreeUrls([])
