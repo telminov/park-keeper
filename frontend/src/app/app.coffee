@@ -38,6 +38,9 @@ angular.module('parkKeeper', [
         swTitle.setTitleStart('')
         swTitle.setTitleEnd('')
 
+.run (monitStatus) ->
+    monitStatus.start()
+
 .config (authConfigProvider, config) ->
     authConfigProvider.setSystemLabel('parkKeeper')
     authConfigProvider.setServerAddress(config.serverAddress)
