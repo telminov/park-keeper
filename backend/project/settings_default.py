@@ -112,3 +112,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+ZMQ_SERVER_ADDRESS = 'localhost'
+ZMQ_MONIT_SCHEDULER_PORT = 5559
+ZMQ_EVENT_RECEIVER_PORT = 5560
+ZMQ_EVENT_PUBLISHER_PORT = 5561
+
+WEB_SOCKET_SERVER_PORT = 8080
+

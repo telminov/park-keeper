@@ -13,7 +13,7 @@
                             <span ng-if="!schedule.isOk()">Fail</span>
                         </span>
                     </td>
-                    <td uib-tooltip="{{ schedule.latestStatusDt | date:'yyyy-MM-dd HH:mm:ss' }}">
+                    <td uib-tooltip="{{ schedule.latestStatusDt | date:'yyyy-MM-dd HH:mm:ss' }}" tooltip-placement="bottom">
                         {{ schedule.period }} sec
                     </td>
                 </tr>
