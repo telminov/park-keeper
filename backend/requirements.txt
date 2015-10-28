@@ -5,3 +5,4 @@ pymysql==0.6.7
 mongoengine==0.10.0
 pyzmq==14.7.0
 aiohttp==0.18.2
+djangorestframework==3.2.4
