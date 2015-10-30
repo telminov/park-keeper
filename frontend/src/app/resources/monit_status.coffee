@@ -2,12 +2,14 @@ angular.module('parkKeeper')
 
 .constant('MONIT_STATUS_UPDATE', 'MONIT_STATUS_UPDATE')
 .constant('WAITING_TASKS_UPDATE', 'WAITING_TASKS_UPDATE')
+.constant('STARTED_TASKS_UPDATE', 'STARTED_TASKS_UPDATE')
 
 .service 'monitStatus', (
         $log, $rootScope, swHttpHelper, swWebSocket, config,
-        MONIT_STATUS_UPDATE, WAITING_TASKS_UPDATE) ->
+        MONIT_STATUS_UPDATE, WAITING_TASKS_UPDATE, STARTED_TASKS_UPDATE) ->
     status = []
     waiting = []
+    started = []
 
     updateStatus = (statusItem) ->
         for item, i in status
@@ -20,6 +22,11 @@ angular.module('parkKeeper')
         waiting.length = 0
         for task in waitingTasks
             waiting.push(task)
+
+    updateStarted = (startedTasks) ->
+        started.length = 0
+        for task in startedTasks
+            started.push(task)
 
     subscribeMonitStatus = ->
         socket = new swWebSocket("#{ config.wsServerAddress }/monits")
@@ -41,8 +48,21 @@ angular.module('parkKeeper')
         socket.onMessage (msg) ->
             waitingTasks = JSON.parse(msg).waiting_tasks
             updateWaiting(waitingTasks)
-            $log.debug('subscribeWaitingTasks', waitingTasks)
+#            $log.debug('subscribeWaitingTasks', waitingTasks)
             $rootScope.$broadcast(WAITING_TASKS_UPDATE, waiting)
+
+        durable = true
+        socket.start(durable)
+
+
+    subscribeStartedTasks = ->
+        socket = new swWebSocket("#{ config.wsServerAddress }/started_tasks")
+
+        socket.onMessage (msg) ->
+            startedTasks = JSON.parse(msg).started_tasks
+            updateStarted(startedTasks)
+#            $log.debug('subscribeStartedTasks', startedTasks)
+            $rootScope.$broadcast(STARTED_TASKS_UPDATE, started)
 
         durable = true
         socket.start(durable)
@@ -52,6 +72,7 @@ angular.module('parkKeeper')
 #        $log.info 'start MonitStatus'
         this.getLatest().then subscribeMonitStatus
         subscribeWaitingTasks()
+        subscribeStartedTasks()
 
     this.getLatest = ->
         return swHttpHelper.get("#{ config.serverAddress }/monit_status_latest/").then (response) ->
