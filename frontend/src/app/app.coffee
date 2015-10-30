@@ -4,6 +4,7 @@ angular.module('parkKeeper', [
     'ngRoute'
     'ngAnimate'
 
+    'angular.filter'
     'ui.bootstrap'
 
     'swUtils'

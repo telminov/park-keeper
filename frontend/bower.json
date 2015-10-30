@@ -15,7 +15,8 @@
     "sw-angular-utils": "0.0.5",
     "sw-angular-websocket": "~0.0.1",
     "sw-angular-auth": "~0.0.2",
-    "moment": "~2.10.6"
+    "moment": "~2.10.6",
+    "angular-filter": "~0.5.7"
   },
   "resolutions": {
     "angular": "1.4.7"

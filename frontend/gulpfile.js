@@ -21,6 +21,7 @@ var paths = {
             'bower_components/angular-sanitize/angular-sanitize.min.js',
             'bower_components/angular-animate/angular-animate.min.js',
             'bower_components/angular-cookies/angular-cookies.min.js',
+            'bower_components/angular-filter/dist/angular-filter.js',
             'bower_components/angular-bootstrap/ui-bootstrap.min.js',
             'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
             'bower_components/sw-angular-utils/sw-angular-utils.js',

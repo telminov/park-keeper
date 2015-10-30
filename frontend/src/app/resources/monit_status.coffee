@@ -1,9 +1,13 @@
 angular.module('parkKeeper')
 
 .constant('MONIT_STATUS_UPDATE', 'MONIT_STATUS_UPDATE')
+.constant('WAITING_TASKS_UPDATE', 'WAITING_TASKS_UPDATE')
 
-.service 'monitStatus', ($log, $rootScope, swHttpHelper, swWebSocket, config, MONIT_STATUS_UPDATE) ->
+.service 'monitStatus', (
+        $log, $rootScope, swHttpHelper, swWebSocket, config,
+        MONIT_STATUS_UPDATE, WAITING_TASKS_UPDATE) ->
     status = []
+    waiting = []
 
     updateStatus = (statusItem) ->
         for item, i in status
@@ -11,6 +15,11 @@ angular.module('parkKeeper')
                 status[i] = statusItem
                 return
         status.push(statusItem)
+
+    updateWaiting = (waitingTasks) ->
+        waiting.length = 0
+        for task in waitingTasks
+            waiting.push(task)
 
     subscribeMonitStatus = ->
         socket = new swWebSocket("#{ config.wsServerAddress }/monits")
@@ -26,9 +35,23 @@ angular.module('parkKeeper')
 #        $log.debug('start subscribeMonitStatus')
 
 
+    subscribeWaitingTasks = ->
+        socket = new swWebSocket("#{ config.wsServerAddress }/waiting_tasks")
+
+        socket.onMessage (msg) ->
+            waitingTasks = JSON.parse(msg).waiting_tasks
+            updateWaiting(waitingTasks)
+            $log.debug('subscribeWaitingTasks', waitingTasks)
+            $rootScope.$broadcast(WAITING_TASKS_UPDATE, waiting)
+
+        durable = true
+        socket.start(durable)
+
+
     this.start = ->
 #        $log.info 'start MonitStatus'
         this.getLatest().then subscribeMonitStatus
+        subscribeWaitingTasks()
 
     this.getLatest = ->
         return swHttpHelper.get("#{ config.serverAddress }/monit_status_latest/").then (response) ->
@@ -42,5 +65,8 @@ angular.module('parkKeeper')
 
     this.getStatus = ->
         return status
+
+    this.getWaiting = ->
+        return waiting
 
     return this
