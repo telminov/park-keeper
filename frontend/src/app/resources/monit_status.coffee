@@ -61,7 +61,7 @@ angular.module('parkKeeper')
         socket.onMessage (msg) ->
             currentWorkers = JSON.parse(msg).current_workers
             updateWorkers(currentWorkers)
-            $log.debug('subscribeWorkersTasks', currentWorkers)
+#            $log.debug('subscribeWorkersTasks', currentWorkers)
             $rootScope.$broadcast(STARTED_TASKS_UPDATE, workers)
 
         durable = true

@@ -41,29 +41,13 @@
         <div class="row">
             <table class="table table-hover table-condensed">
                 <tbody>
-                    <tr class="info">
+                    <tr ng-class="{'info': worker.tasks.length, 'active': !worker.tasks.length}"
+                        ng-repeat="worker in monitWorkers">
                         <td>
-                            <span class="label label-default">MacBook</span>
-                            worker 1
+                            <span class="label label-default">{{ worker.host_name }}</span>
                         </td>
-                        <td>ping all hosts</td>
-                        <td><span class="note">localhost</span></td>
-                    </tr>
-                    <tr class="info">
-                        <td>
-                            <span class="label label-default">MacBook</span>
-                            worker 2
-                        </td>
-                        <td>ping all hosts</td>
-                        <td><span class="note">portal</span></td>
-                    </tr>
-                    <tr class="active">
-                        <td>
-                            <span class="label label-default">MacBook</span>
-                            worker 3
-                        </td>
-                        <td>waiting</td>
-                        <td></td>
+                        <td>worker {{ worker.id }}</td>
+                        <td>tasks: {{ worker.tasks.length }}</td>
                     </tr>
             </table>
         </div>
