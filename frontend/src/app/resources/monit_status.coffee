@@ -9,7 +9,7 @@ angular.module('parkKeeper')
         MONIT_STATUS_UPDATE, WAITING_TASKS_UPDATE, STARTED_TASKS_UPDATE) ->
     status = []
     waiting = []
-    started = []
+    workers = []
 
     updateStatus = (statusItem) ->
         for item, i in status
@@ -23,10 +23,10 @@ angular.module('parkKeeper')
         for task in waitingTasks
             waiting.push(task)
 
-    updateStarted = (startedTasks) ->
-        started.length = 0
-        for task in startedTasks
-            started.push(task)
+    updateWorkers = (currentWorkers) ->
+        workers.length = 0
+        for worker in currentWorkers
+            workers.push(worker)
 
     subscribeMonitStatus = ->
         socket = new swWebSocket("#{ config.wsServerAddress }/monits")
@@ -55,14 +55,14 @@ angular.module('parkKeeper')
         socket.start(durable)
 
 
-    subscribeStartedTasks = ->
-        socket = new swWebSocket("#{ config.wsServerAddress }/started_tasks")
+    subscribeWorkersTasks = ->
+        socket = new swWebSocket("#{ config.wsServerAddress }/current_workers")
 
         socket.onMessage (msg) ->
-            startedTasks = JSON.parse(msg).started_tasks
-            updateStarted(startedTasks)
-#            $log.debug('subscribeStartedTasks', startedTasks)
-            $rootScope.$broadcast(STARTED_TASKS_UPDATE, started)
+            currentWorkers = JSON.parse(msg).current_workers
+            updateWorkers(currentWorkers)
+            $log.debug('subscribeWorkersTasks', currentWorkers)
+            $rootScope.$broadcast(STARTED_TASKS_UPDATE, workers)
 
         durable = true
         socket.start(durable)
@@ -72,7 +72,7 @@ angular.module('parkKeeper')
 #        $log.info 'start MonitStatus'
         this.getLatest().then subscribeMonitStatus
         subscribeWaitingTasks()
-        subscribeStartedTasks()
+        subscribeWorkersTasks()
 
     this.getLatest = ->
         return swHttpHelper.get("#{ config.serverAddress }/monit_status_latest/").then (response) ->
@@ -89,5 +89,8 @@ angular.module('parkKeeper')
 
     this.getWaiting = ->
         return waiting
+
+    this.getWorkers = ->
+        return workers
 
     return this

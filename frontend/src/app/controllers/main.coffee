@@ -10,3 +10,4 @@ angular.module('parkKeeper')
     $scope.$on('$destroy', monitStatusListener)
 
     $scope.waitingTasks = monitStatus.getWaiting()
+    $scope.monitWorkers = monitStatus.getWorkers()
