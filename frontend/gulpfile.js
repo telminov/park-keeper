@@ -60,3 +60,6 @@ gulp.task('watch', ['js', 'html', 'lib'], function () {
     gulp.watch(paths.scripts.app, ['js']);
     gulp.watch(paths.html, ['html']);
 });
+
+
+gulp.task('build', ['js', 'html', 'lib']);
