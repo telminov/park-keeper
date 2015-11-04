@@ -13,7 +13,7 @@ angular.module('parkKeeper')
 
         isOk: ->
             for host in this.all_hosts
-                if host.status != undefined and not host.status.is_success
+                if host.status != undefined and not host.status.level == 1
                     return false
             return true
 
