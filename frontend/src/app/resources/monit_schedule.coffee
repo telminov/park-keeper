@@ -7,17 +7,27 @@ angular.module('parkKeeper')
 
 .factory 'MonitSchedule', (MonitScheduleResource) ->
     class MonitSchedule
+
         constructor: (data) ->
             this.latestStatusDt = undefined
+            this.latestStatusLevel = undefined
             angular.extend(this, data or {})
 
-        isOk: ->
-            for host in this.all_hosts
-                if host.status != undefined and not host.status.level == 1
-                    return false
-            return true
+        @GetAll: ->
+            schedules = []
+
+            schedulesData = MonitScheduleResource.query ->
+                for itemData in schedulesData
+                    schedule = new MonitSchedule(itemData)
+                    schedules.push(schedule)
+
+            return schedules
+
+        getLabel: ->
+            return this.name or this.monit.name
 
         updateHostsStatus: (statuses) ->
+            this.latestStatusLevel = undefined
             for statusItem in statuses
                 if statusItem.schedule_id != this.id
                     continue
@@ -31,19 +41,28 @@ angular.module('parkKeeper')
                 if not this.latestStatusDt or host.status.result_dt > this.latestStatusDt
                     this.latestStatusDt = host.status.result_dt
 
+                if not this.latestStatusLevel or this.latestStatusLevel < host.status.level
+                    this.latestStatusLevel = host.status.level
+
+                if not this.latestStatusDt or this.latestStatusDt < host.status.result_dt
+                    this.latestStatusDt = host.status.result_dt
+
         getHost: (hostAddress) ->
             for host in this.all_hosts
                 if host.address == hostAddress
                     return host
 
-        @GetAll: ->
-            schedules = []
+        isUndefined: ->
+            return this.latestStatusLevel == undefined
+        isOk: ->
+            return this.latestStatusLevel == 1
+        isWarning: ->
+            return this.latestStatusLevel == 2
+        isFail: ->
+            return this.latestStatusLevel == 3
 
-            schedulesData = MonitScheduleResource.query ->
-                for itemData in schedulesData
-                    schedule = new MonitSchedule(itemData)
-                    schedules.push(schedule)
-
-            return schedules
+        isFresh: ->
+            deadline = moment().subtract(this.period * 2, 'seconds').toDate()
+            return this.latestStatusDt > deadline
 
     return MonitSchedule

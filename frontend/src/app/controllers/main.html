@@ -2,19 +2,34 @@
     <div class="col-xs-6">
         <table class="table table-hover table-condensed">
             <tbody>
-                <tr ng-repeat="schedule in monitSchedules">
+                <tr ng-repeat="schedule in monitSchedules"
+                    ng-class="{'info': schedule.is_active, 'active': !schedule.is_active}"
+                >
                     <td>
-                        {{ schedule.name }}
+                        {{ schedule.getLabel() }}
                         <span class="note">{{ schedule.all_hosts.length }} hosts</span>
                     </td>
                     <td>
-                        <span class="label" ng-class="{'label-success': schedule.isOk(), 'label-danger': !schedule.isOk()}">
+                        <span class="label" ng-class="{
+                            'label-default': schedule.isUndefined(),
+                            'label-success': schedule.isOk(),
+                            'label-warning': schedule.isWarning(),
+                            'label-danger': schedule.isFail()
+                            }"
+                              ng-if="schedule.is_active"
+                        >
+                            <span ng-if="schedule.isUndefined()">Undefined</span>
                             <span ng-if="schedule.isOk()">Ok</span>
-                            <span ng-if="!schedule.isOk()">Fail</span>
+                            <span ng-if="schedule.isWarning()">Warning</span>
+                            <span ng-if="schedule.isFail()">Fail</span>
                         </span>
                     </td>
-                    <td uib-tooltip="{{ schedule.latestStatusDt | date:'yyyy-MM-dd HH:mm:ss' }}" tooltip-placement="bottom">
-                        {{ schedule.period }} sec
+                    <td uib-tooltip="period: {{ schedule.period }} sec"
+                        tooltip-placement="bottom">
+                        <span class="label"
+                              ng-class="{'label-success': schedule.isFresh(), 'label-warning': !schedule.isFresh()}">
+                            {{ schedule.latestStatusDt | date:'yyyy-MM-dd HH:mm:ss' }}
+                        </span>
                     </td>
                 </tr>
             </tbody>

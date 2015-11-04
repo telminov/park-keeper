@@ -2,11 +2,11 @@ angular.module('parkKeeper')
 
 .constant('MONIT_STATUS_UPDATE', 'MONIT_STATUS_UPDATE')
 .constant('WAITING_TASKS_UPDATE', 'WAITING_TASKS_UPDATE')
-.constant('STARTED_TASKS_UPDATE', 'STARTED_TASKS_UPDATE')
+.constant('WORKERS_UPDATE', 'WORKERS_UPDATE')
 
 .service 'monitStatus', (
         $log, $rootScope, swHttpHelper, swWebSocket, config,
-        MONIT_STATUS_UPDATE, WAITING_TASKS_UPDATE, STARTED_TASKS_UPDATE) ->
+        MONIT_STATUS_UPDATE, WAITING_TASKS_UPDATE, WORKERS_UPDATE) ->
     status = []
     waiting = []
     workers = []
@@ -62,7 +62,7 @@ angular.module('parkKeeper')
             currentWorkers = JSON.parse(msg).current_workers
             updateWorkers(currentWorkers)
 #            $log.debug('subscribeWorkersTasks', currentWorkers)
-            $rootScope.$broadcast(STARTED_TASKS_UPDATE, workers)
+            $rootScope.$broadcast(WORKERS_UPDATE, workers)
 
         durable = true
         socket.start(durable)
@@ -70,7 +70,7 @@ angular.module('parkKeeper')
 
     this.start = ->
 #        $log.info 'start MonitStatus'
-        this.getLatest().then subscribeMonitStatus
+        this.getLatest().then(subscribeMonitStatus)
         subscribeWaitingTasks()
         subscribeWorkersTasks()
 
