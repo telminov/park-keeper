@@ -1,32 +1,32 @@
 # docker build -t telminov/park-keeper .
-# sudo docker run --rm -ti telminov/park-keeper
-FROM ubuntu:14.04
+# docker run --rm -ti --name parkkeeper --link mongo3:mongo3 -p 8080-8081:8080-8081 -p 5548-5552:5548-5552 --volume=/var/docker/park-keeper/conf/:/conf/ --volume=/var/docker/park-keeper/data/:/data/ telminov/park-keeper
+
+FROM telminov/ubuntu-14.04-python-3.5
 MAINTAINER telminov <telminov@soft-way.biz>
 
-# web server port
-EXPOSE 8080
-# web scoket server
-EXPOSE 8081
+# web server web socket server
+EXPOSE 8080-8081
+# zmq ports
+EXPOSE 5548-5552
 
-RUN apt-get update && apt-get install -y vim wget curl \
-                        xz-utils \
-                        build-essential \
-                        libssl-dev openssl \
-                        git
+# directory for sqlite3 database
+VOLUME /data/
+# django settings and frontend config
+VOLUME /conf/
 
-# install python 3
-WORKDIR /tmp
-RUN wget https://www.python.org/ftp/python/3.5.0/Python-3.5.0.tar.xz
-RUN tar -xf Python-3.5.0.tar.xz
-WORKDIR /tmp/Python-3.5.0
-RUN ./configure
-RUN make
-RUN make install
-RUN rm -rf /tmp/Python-3.5.0*
+RUN apt-get update && \
+    apt-get install -y \
+                    vim \
+                    curl \
+                    build-essential \
+                    git \
+                    supervisor
 
 # install nodejs
 RUN curl -sL https://deb.nodesource.com/setup | bash -
 RUN apt-get install -y nodejs
+
+RUN mkdir /var/log/park-keeper
 
 # copy source
 COPY . /opt/park-keeper
@@ -42,4 +42,18 @@ RUN node_modules/.bin/gulp build
 WORKDIR /opt/park-keeper/backend
 RUN pip3 install -r requirements.txt
 
-#
+COPY supervisor.conf /etc/supervisor/conf.d/park-keeper.conf
+
+
+CMD cd /opt/park-keeper/frontend; \
+    test "$(ls /conf/config.coffee)" || cp src/app/config.coffee /conf/config.coffee; \
+    rm src/app/config.coffee; \
+    ln -s /conf/config.coffee src/app/config.coffee; \
+    node_modules/.bin/gulp build; \
+    cd /opt/park-keeper/backend; \
+    test "$(ls /conf/settings.py)" || cp project/settings.sample.py /conf/settings.py; \
+    rm project/settings.py; \
+    ln -s /conf/settings.py project/settings.py; \
+    python3 ./manage.py migrate; \
+    /usr/bin/supervisord
+

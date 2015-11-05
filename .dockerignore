@@ -1,3 +1,4 @@
 backend/virt_env
+backend/project/settings.py
 frontend/node_modules
 frontend/bower_components

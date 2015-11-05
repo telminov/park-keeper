@@ -1,0 +1,14 @@
+# ansible-playbook -v upload_packages.yml
+---
+- hosts: 127.0.0.1
+  connection: local
+
+  vars:
+    package_paths:
+      - ../../django-park-keeper/
+      - ../../park-worker-base/
+
+  tasks:
+    - name: upload to pypi
+      shell: python setup.py sdist register upload chdir={{ item }}
+      with_items: package_paths
