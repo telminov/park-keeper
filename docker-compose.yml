@@ -1,0 +1,10 @@
+parkkeper:
+  image: telminov/park-keeper
+  volumes:
+    - /var/docker/park-keeper/conf/:/conf/
+    - /var/docker/park-keeper/data/:/data/
+  ports:
+    - 8080-8081:8080-8081
+    - 5548-5552:5548-5552
+  links:
+    - mongo3
