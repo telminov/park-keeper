@@ -2,3 +2,7 @@ span.note {
     font-size: 85%;
     color: gray;
 }
+
+.clickable {
+    cursor: pointer;
+}

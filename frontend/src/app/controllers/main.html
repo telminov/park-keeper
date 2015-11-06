@@ -44,7 +44,7 @@
                 </li>
 
                 <li class="list-group-item" ng-repeat="(name, tasks) in waitingTasks | groupBy: 'monit_name'">
-                    <span class="badge">{{ tasks.length }}</span>
+                    <span class="badge" ng-class="{clickable: tasks.length}" ng-click="openTask(tasks)">{{ tasks.length }}</span>
                     {{ name }}
                 </li>
                 <li class="list-group-item" ng-if="!waitingTasks.length">
@@ -62,7 +62,9 @@
                             <span class="label label-default">{{ worker.host_name }}</span>
                         </td>
                         <td>worker {{ worker.id }} {{ worker.type }}</td>
-                        <td>tasks: {{ worker.tasks.length }}</td>
+                        <td ng-class="{clickable: worker.tasks.length}" ng-click="openTask(worker.tasks)">
+                            tasks: {{ worker.tasks.length }}
+                        </td>
                     </tr>
             </table>
         </div>

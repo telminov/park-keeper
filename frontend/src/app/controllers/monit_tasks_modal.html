@@ -1,0 +1,37 @@
+<div class="modal-header">
+    <h3 class="modal-title">Monitoring tasks</h3>
+</div>
+<div class="modal-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Monitoring</th>
+                <th>Host address</th>
+                <th>Worker host</th>
+                <th>Start time</th>
+                <th>Result time</th>
+                <th>Level</th>
+                <th>Extra</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="task in tasks">
+                <td>{{ $index+1 }}</td>
+                <td>
+                    {{ task.monit_name }}
+                    {{ task.id }}
+                </td>
+                <td>{{ task.host_address }}</td>
+                <td>{{ task.worker.host_name }}</td>
+                <td>{{ task.start_dt|date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                <td>{{ task.result_dt|date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                <td>{{ task.level }}</td>
+                <td>{{ task.extra }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

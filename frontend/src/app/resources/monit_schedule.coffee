@@ -5,7 +5,7 @@ angular.module('parkKeeper')
     return $resource(url)
 
 
-.factory 'MonitSchedule', (MonitScheduleResource) ->
+.factory 'MonitSchedule', ($log, MonitScheduleResource) ->
     class MonitSchedule
 
         constructor: (data) ->
