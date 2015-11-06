@@ -26,8 +26,10 @@ angular.module('parkKeeper')
         getLabel: ->
             return this.name or this.monit.name
 
+        update: (data) ->
+            angular.extend(this, data or {})
+
         updateHostsStatus: (statuses) ->
-            this.latestStatusLevel = undefined
             for statusItem in statuses
                 if statusItem.schedule_id != this.id
                     continue
@@ -35,6 +37,8 @@ angular.module('parkKeeper')
                 host = this.getHost(statusItem.host_address)
                 if not host
                     continue
+
+                this.latestStatusLevel = undefined
 
                 host.status = statusItem
                 host.status.result_dt = moment(statusItem.result_dt).toDate()

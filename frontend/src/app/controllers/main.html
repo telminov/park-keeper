@@ -36,7 +36,7 @@
         </table>
     </div>
 
-    <div class="col-xs-3 col-xs-offset-1">
+    <div class="col-xs-4 col-xs-offset-1">
         <div class="row">
             <ul class="list-group">
                 <li class="list-group-item">
@@ -61,7 +61,7 @@
                         <td>
                             <span class="label label-default">{{ worker.host_name }}</span>
                         </td>
-                        <td>worker {{ worker.id }}</td>
+                        <td>worker {{ worker.id }} {{ worker.type }}</td>
                         <td>tasks: {{ worker.tasks.length }}</td>
                     </tr>
             </table>

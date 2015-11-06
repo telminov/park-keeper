@@ -1,21 +1,24 @@
 angular.module('parkKeeper')
 
+.constant('MONIT_SCHEDULE_UPDATE', 'MONIT_SCHEDULE_UPDATE')
 .constant('MONIT_STATUS_UPDATE', 'MONIT_STATUS_UPDATE')
 .constant('WAITING_TASKS_UPDATE', 'WAITING_TASKS_UPDATE')
 .constant('WORKERS_UPDATE', 'WORKERS_UPDATE')
 
 .service 'monitStatus', (
         $log, $rootScope, swHttpHelper, swWebSocket, config,
-        MONIT_STATUS_UPDATE, WAITING_TASKS_UPDATE, WORKERS_UPDATE) ->
+        MONIT_SCHEDULE_UPDATE, MONIT_STATUS_UPDATE, WAITING_TASKS_UPDATE, WORKERS_UPDATE) ->
     status = []
     waiting = []
     workers = []
 
     updateStatus = (statusItem) ->
         for item, i in status
-            if item.monit_name == statusItem.monit_name and item.host_address == statusItem.host_address
-                status[i] = statusItem
-                return
+            if item.monit_name == statusItem.monit_name \
+                and item.host_address == statusItem.host_address \
+                and item.schedule_id == statusItem.schedule_id
+                    status[i] = statusItem
+                    return
         status.push(statusItem)
 
     updateWaiting = (waitingTasks) ->
@@ -40,6 +43,18 @@ angular.module('parkKeeper')
         durable = true
         socket.start(durable)
 #        $log.debug('start subscribeMonitStatus')
+
+
+    subscribeMonitSchedule = ->
+        socket = new swWebSocket("#{ config.wsServerAddress }/monit_schedules")
+
+        socket.onMessage (msg) ->
+            monitSchedule = JSON.parse(msg)
+#            $log.debug('subscribeMonitSchedule', monitSchedule)
+            $rootScope.$broadcast(MONIT_SCHEDULE_UPDATE, monitSchedule)
+
+        durable = true
+        socket.start(durable)
 
 
     subscribeWaitingTasks = ->
@@ -71,6 +86,7 @@ angular.module('parkKeeper')
     this.start = ->
 #        $log.info 'start MonitStatus'
         this.getLatest().then(subscribeMonitStatus)
+        subscribeMonitSchedule()
         subscribeWaitingTasks()
         subscribeWorkersTasks()
 
