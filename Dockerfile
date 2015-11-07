@@ -48,7 +48,7 @@ RUN python3 ./manage.py collectstatic --noinput
 
 COPY supervisor.conf /etc/supervisor/conf.d/park-keeper.conf
 
-CMD rm -rf /frontend/bower_components /frontend/dist /frontend/styles /frontend/static \
+CMD rm -rf /frontend/bower_components /frontend/dist /frontend/styles /frontend/static; \
     cd /opt/park-keeper/frontend; \
     test "$(ls /conf/config.coffee)" || cp src/app/config.coffee /conf/config.coffee; \
     rm src/app/config.coffee; \
