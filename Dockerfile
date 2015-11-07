@@ -13,6 +13,8 @@ EXPOSE 5548-5552
 VOLUME /data/
 # django settings and frontend config
 VOLUME /conf/
+# frontend static for webserver
+VOLUME /frontend/
 
 RUN apt-get update && \
     apt-get install -y \
@@ -44,8 +46,11 @@ RUN pip3 install -r requirements.txt
 
 COPY supervisor.conf /etc/supervisor/conf.d/park-keeper.conf
 
-
 CMD cd /opt/park-keeper/frontend; \
+    rm -rf /frontend/bower_components /frontend/dist /frontend/styles; \
+    cp -r bower_components /frontend/bower_components; \
+    cp -r dist /frontend/dist; \
+    cp -r styles /frontend/styles; \
     test "$(ls /conf/config.coffee)" || cp src/app/config.coffee /conf/config.coffee; \
     rm src/app/config.coffee; \
     ln -s /conf/config.coffee src/app/config.coffee; \
