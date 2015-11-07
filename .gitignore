@@ -7,3 +7,4 @@ frontend/bower_components
 frontend/src/app/**/*.js
 frontend/utils/**/*.js
 frontend/utils/styles/utils.css
+supervisord.log

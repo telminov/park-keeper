@@ -1,24 +1,36 @@
 parkkeeper:
   image: telminov/park-keeper
   volumes:
-    - /var/docker/park-keeper/conf/:/conf/
-    - /var/docker/park-keeper/data/:/data/
+#    - /var/docker/park-keeper/conf/:/conf/
+#    - /var/docker/park-keeper/data/:/data/
+    - .:/opt/park-keeper/
+  command:  bash -c "cd /opt/park-keeper/; cp supervisor/dev.conf /etc/supervisor/conf.d/park-keeper.conf; supervisord"
   ports:
-    - 8080-8081:8080-8081
-    - 5548-5552:5548-5552
+    - 8080:8080
+    - 8081:8081
+    - 5548:5548
+    - 5549:5549
+    - 5550:5550
+    - 5551:5551
+    - 5552:5552
   external_links:
     - mongo3
+    - mysql
 
 parkworker2:
   image: telminov/park-worker-p2
+  command:  bash -c "cd /opt/park-worker-p2/parkworker2; python bin/start_workers.py"
   volumes:
-    - /var/docker/park-worker-p2/conf/:/conf/
+#    - /var/docker/park-worker-p2/conf/:/conf/
+    - ../park-worker-p2/:/opt/park-worker-p2/
   links:
     - parkkeeper
 
 parkworker3:
   image: telminov/park-worker-p3
+  command:  bash -c "cd /opt/park-worker-p3/parkworker3; python3 bin/start_workers.py"
   volumes:
-    - /var/docker/park-worker-p3/conf/:/conf/
+#    - /var/docker/park-worker-p3/conf/:/conf/
+    - ../park-worker-p3/:/opt/park-worker-p3/
   links:
     - parkkeeper

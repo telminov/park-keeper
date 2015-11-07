@@ -46,7 +46,7 @@ RUN pip3 install -r requirements.txt
 RUN cp project/settings.sample.py project/settings.py
 RUN python3 ./manage.py collectstatic --noinput
 
-COPY supervisor.conf /etc/supervisor/conf.d/park-keeper.conf
+COPY supervisor/prod.conf /etc/supervisor/conf.d/park-keeper.conf
 
 CMD rm -rf /frontend/bower_components /frontend/dist /frontend/styles /frontend/static; \
     cd /opt/park-keeper/frontend; \
