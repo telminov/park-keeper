@@ -63,3 +63,11 @@ bin/start_workers.py
 ```
 
 
+## Docker compose
+```
+docker start mongo3
+docker-compose up
+```
+
+
+
