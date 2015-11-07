@@ -43,6 +43,7 @@ RUN node_modules/.bin/gulp build
 # install backend
 WORKDIR /opt/park-keeper/backend
 RUN pip3 install -r requirements.txt
+RUN python3 ./manage.py collectstatic --noinput
 
 COPY supervisor.conf /etc/supervisor/conf.d/park-keeper.conf
 
@@ -51,11 +52,12 @@ CMD cd /opt/park-keeper/frontend; \
     rm src/app/config.coffee; \
     ln -s /conf/config.coffee src/app/config.coffee; \
     node_modules/.bin/gulp build; \
-    rm -rf /frontend/bower_components /frontend/dist /frontend/styles; \
+    rm -rf /frontend/bower_components /frontend/dist /frontend/styles; /frontend/static \
     cp -r bower_components /frontend/bower_components; \
     cp -r dist /frontend/dist; \
     cp -r styles /frontend/styles; \
     cd /opt/park-keeper/backend; \
+    cp -r static /frontend/static; \
     test "$(ls /conf/settings.py)" || cp project/settings.sample.py /conf/settings.py; \
     rm project/settings.py; \
     ln -s /conf/settings.py project/settings.py; \
