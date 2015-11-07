@@ -65,7 +65,7 @@ bin/start_workers.py
 
 ## Docker compose
 ```
-docker start mongo3
+docker start mongo3 mysql
 docker-compose up
 ```
 
