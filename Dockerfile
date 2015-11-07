@@ -47,14 +47,14 @@ RUN pip3 install -r requirements.txt
 COPY supervisor.conf /etc/supervisor/conf.d/park-keeper.conf
 
 CMD cd /opt/park-keeper/frontend; \
-    rm -rf /frontend/bower_components /frontend/dist /frontend/styles; \
-    cp -r bower_components /frontend/bower_components; \
-    cp -r dist /frontend/dist; \
-    cp -r styles /frontend/styles; \
     test "$(ls /conf/config.coffee)" || cp src/app/config.coffee /conf/config.coffee; \
     rm src/app/config.coffee; \
     ln -s /conf/config.coffee src/app/config.coffee; \
     node_modules/.bin/gulp build; \
+    rm -rf /frontend/bower_components /frontend/dist /frontend/styles; \
+    cp -r bower_components /frontend/bower_components; \
+    cp -r dist /frontend/dist; \
+    cp -r styles /frontend/styles; \
     cd /opt/park-keeper/backend; \
     test "$(ls /conf/settings.py)" || cp project/settings.sample.py /conf/settings.py; \
     rm project/settings.py; \
