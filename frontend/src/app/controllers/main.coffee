@@ -23,7 +23,10 @@ angular.module('parkKeeper')
     updateMonitSchedulesStatuses = ->
         for schedule in $scope.monitSchedules
             schedule.updateHostsStatus(monitStatus.getStatus())
-
+    $timeout(
+        updateMonitSchedulesStatuses,
+        1000
+    )
 
     monitStatusListener = $scope.$on(MONIT_STATUS_UPDATE, updateMonitSchedulesStatuses)
 
