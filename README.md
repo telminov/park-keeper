@@ -1,7 +1,7 @@
 # park-keeper
 Django project for application django-park-keeper
 
-## starting
+## Deployment
 ```
 mkdir -p /var/docker/park-keeper/conf
 mkdir -p /var/docker/park-keeper/db
@@ -61,5 +61,13 @@ cp project/settings.sample.py project/settings.py
 bin/start_workers.py
 
 ```
+
+
+## Docker compose
+```
+docker start mongo3 mysql
+docker-compose up
+```
+
 
 
