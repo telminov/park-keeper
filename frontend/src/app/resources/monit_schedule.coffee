@@ -5,23 +5,13 @@ angular.module('parkKeeper')
     return $resource(url)
 
 
-.factory 'MonitSchedule', ($log, MonitScheduleResource) ->
+.factory 'MonitSchedule', ($log) ->
     class MonitSchedule
 
         constructor: (data) ->
             this.latestStatusDt = undefined
             this.latestStatusLevel = undefined
             angular.extend(this, data or {})
-
-        @GetAll: ->
-            schedules = []
-
-            schedulesData = MonitScheduleResource.query ->
-                for itemData in schedulesData
-                    schedule = new MonitSchedule(itemData)
-                    schedules.push(schedule)
-
-            return schedules
 
         getLabel: ->
             return this.name or this.monit.name
@@ -40,8 +30,10 @@ angular.module('parkKeeper')
 
                 this.latestStatusLevel = undefined
 
+                if statusItem.result_dt
+                    statusItem.result_dt = moment(statusItem.result_dt).toDate()
+
                 host.status = statusItem
-                host.status.result_dt = moment(statusItem.result_dt).toDate()
                 if not this.latestStatusDt or host.status.result_dt > this.latestStatusDt
                     this.latestStatusDt = host.status.result_dt
 
@@ -70,3 +62,74 @@ angular.module('parkKeeper')
             return this.latestStatusDt > deadline
 
     return MonitSchedule
+
+
+.factory 'MonitScheduleCollection', ($log, $rootScope, MonitSchedule, MonitScheduleResource, monitStatus
+                                    MONIT_STATUS_UPDATE, MONIT_SCHEDULE_UPDATE) ->
+    class MonitScheduleCollection
+
+        constructor: ->
+            this.schedules = []
+            this.statusListener = undefined
+            this.scheduleListener = undefined
+
+        loadAll: ->
+            this.schedules.length = 0
+            schedulesData = MonitScheduleResource.query =>
+                for itemData in schedulesData
+                    schedule = new MonitSchedule(itemData)
+                    this.schedules.push(schedule)
+                this._updateStatuses()
+
+        startWatch: ->
+            this.statusListener = $rootScope.$on(MONIT_STATUS_UPDATE, => this._updateStatuses())
+            this.scheduleListener = $rootScope.$on(MONIT_SCHEDULE_UPDATE, (e, data) => this._processScheduleEvent(e, data))
+
+        stopWatch: ->
+            if this.statusListener
+                this.statusListener()
+                this.statusListener = undefined
+
+            if this.scheduleListener
+                this.scheduleListener()
+                this.scheduleListener = undefined
+
+        getIndex: (scheduleId) ->
+            for schedule, i in this.schedules
+                if schedule.id == scheduleId
+                    return i
+
+        getSchedule: (scheduleId) ->
+            index = this.getIndex(scheduleId)
+            schedule = this.schedules[index]
+            return schedule
+
+        _updateStatuses: ->
+            for schedule in this.schedules
+                schedule.updateHostsStatus(monitStatus.getStatus())
+
+        _processScheduleEvent: (e, data) ->
+            if data.event == 'create' or data.event == 'update'
+                this._updateSchedule(data.instance)
+            else if data.event == 'delete'
+                this._deleteSchedule(data.instance)
+            else
+                $log.error('Unexpected monitScheduleListener data', data)
+            this._updateStatuses()
+
+        _updateSchedule: (scheduleData) ->
+            schedule = this.getSchedule(scheduleData.id)
+            if schedule
+                schedule.update(scheduleData)
+            else
+                new_schedule = new MonitSchedule(scheduleData)
+                this.schedules.push(new_schedule)
+            $log.debug('_updateSchedule')
+
+        _deleteSchedule: (scheduleData) ->
+            index = this.getIndex(scheduleData.id)
+            if index
+                this.schedules.splice(index, 1)
+            $log.debug('_deleteSchedule')
+
+    return MonitScheduleCollection
