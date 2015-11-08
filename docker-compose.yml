@@ -1,8 +1,8 @@
 parkkeeper:
   image: telminov/park-keeper
   volumes:
-#    - /var/docker/park-keeper/conf/:/conf/
-#    - /var/docker/park-keeper/data/:/data/
+    - ../django-park-keeper/parkkeeper/:/usr/local/lib/python3.5/site-packages/parkkeeper/
+    - ../park-worker-base/parkworker/:/usr/local/lib/python3.5/site-packages/parkworker/
     - .:/opt/park-keeper/
   command:  bash -c "cd /opt/park-keeper/; cp supervisor/dev.conf /etc/supervisor/conf.d/park-keeper.conf; supervisord"
   ports:
@@ -21,7 +21,7 @@ parkworker2:
   image: telminov/park-worker-p2
   command:  bash -c "cd /opt/park-worker-p2/parkworker2; python bin/start_workers.py"
   volumes:
-#    - /var/docker/park-worker-p2/conf/:/conf/
+    - ../park-worker-base/parkworker/:/usr/local/lib/python3.5/site-packages/parkworker/
     - ../park-worker-p2/:/opt/park-worker-p2/
   links:
     - parkkeeper
@@ -30,7 +30,7 @@ parkworker3:
   image: telminov/park-worker-p3
   command:  bash -c "cd /opt/park-worker-p3/parkworker3; python3 bin/start_workers.py"
   volumes:
-#    - /var/docker/park-worker-p3/conf/:/conf/
+    - ../park-worker-base/parkworker/:/usr/local/lib/python3.5/site-packages/parkworker/
     - ../park-worker-p3/:/opt/park-worker-p3/
   links:
     - parkkeeper
