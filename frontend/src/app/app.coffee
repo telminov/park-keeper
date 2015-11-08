@@ -20,6 +20,12 @@ angular.module('parkKeeper', [
       label: ''
     )
 
+    .when('/monit_schedule/:id/latest_result/',
+      templateUrl: 'controllers/monit_schedule/latest_results.html'
+      controller: 'MonitScheduleLatestResultsCtrl'
+      label: 'latest results'
+    )
+
     .when('/login/',
         templateUrl: 'controllers/login.html'
         controller: 'AuthLoginCtrl'

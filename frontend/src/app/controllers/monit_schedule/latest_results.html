@@ -1,0 +1,21 @@
+<h2>"{{ schedule.getLabel() }}" monitoring results</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Host</th>
+            <th>Result time</th>
+            <th>Level</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr ng-repeat="result in schedule.all_hosts">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ result.address }}</td>
+            <td>{{ result.status.result_dt | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+            <td>{{ result.status.level }}</td>
+        </tr>
+    </tbody>
+</table>

@@ -6,22 +6,20 @@
                     ng-class="{'info': schedule.is_active, 'active': !schedule.is_active}"
                 >
                     <td>
-                        {{ schedule.getLabel() }}
+                        <a ng-href="/#/monit_schedule/{{ schedule.id }}/latest_result/">
+                            {{ schedule.getLabel() }}
+                        </a>
                         <span class="note">{{ schedule.all_hosts.length }} hosts</span>
                     </td>
                     <td>
-                        <span class="label" ng-class="{
+                        <span class="label" ng-show="schedule.is_active" ng-class="{
                             'label-default': schedule.isUndefined(),
                             'label-success': schedule.isOk(),
                             'label-warning': schedule.isWarning(),
                             'label-danger': schedule.isFail()
                             }"
-                              ng-if="schedule.is_active"
                         >
-                            <span ng-if="schedule.isUndefined()">Undefined</span>
-                            <span ng-if="schedule.isOk()">Ok</span>
-                            <span ng-if="schedule.isWarning()">Warning</span>
-                            <span ng-if="schedule.isFail()">Fail</span>
+                            {{ schedule.getLevelLabel() }}
                         </span>
                     </td>
                     <td uib-tooltip="period: {{ schedule.period }} sec"

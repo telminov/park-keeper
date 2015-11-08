@@ -5,8 +5,15 @@ angular.module('parkKeeper')
     return $resource(url)
 
 
-.factory 'MonitSchedule', ($log) ->
+.factory 'MonitSchedule', ($log, monitStatus, MonitScheduleResource) ->
     class MonitSchedule
+
+        @load: (id) ->
+            schedule = new MonitSchedule()
+            scheduleData = MonitScheduleResource.get {id: id}, ->
+                schedule = schedule.update(scheduleData)
+                schedule.updateHostsStatus()
+            return schedule
 
         constructor: (data) ->
             this.latestStatusDt = undefined
@@ -14,13 +21,13 @@ angular.module('parkKeeper')
             angular.extend(this, data or {})
 
         getLabel: ->
-            return this.name or this.monit.name
+            return this.name or this.monit?.name
 
         update: (data) ->
             angular.extend(this, data or {})
 
-        updateHostsStatus: (statuses) ->
-            for statusItem in statuses
+        updateHostsStatus: ->
+            for statusItem in monitStatus.getStatus()
                 if statusItem.schedule_id != this.id
                     continue
 
@@ -56,6 +63,16 @@ angular.module('parkKeeper')
             return this.latestStatusLevel == 2
         isFail: ->
             return this.latestStatusLevel == 3
+            
+        getLevelLabel: ->
+            if this.isUndefined()
+                return 'Undefined'
+            else if this.isOk()
+                return 'Ok'
+            else if this.isWarning()
+                return 'Warning'
+            else if this.isFail()
+                return 'Fail'
 
         isFresh: ->
             deadline = moment().subtract(this.period * 2, 'seconds').toDate()
@@ -64,7 +81,7 @@ angular.module('parkKeeper')
     return MonitSchedule
 
 
-.factory 'MonitScheduleCollection', ($log, $rootScope, MonitSchedule, MonitScheduleResource, monitStatus
+.factory 'MonitScheduleCollection', ($log, $rootScope, MonitSchedule, MonitScheduleResource,
                                     MONIT_STATUS_UPDATE, MONIT_SCHEDULE_UPDATE) ->
     class MonitScheduleCollection
 
@@ -106,7 +123,7 @@ angular.module('parkKeeper')
 
         _updateStatuses: ->
             for schedule in this.schedules
-                schedule.updateHostsStatus(monitStatus.getStatus())
+                schedule.updateHostsStatus()
 
         _processScheduleEvent: (e, data) ->
             if data.event == 'create' or data.event == 'update'

@@ -1,6 +1,5 @@
 angular.module('parkKeeper')
-.controller 'MainCtrl', ($scope, $log, $timeout, $uibModal, swWebSocket,
-                         monitStatus, MONIT_STATUS_UPDATE, MONIT_SCHEDULE_UPDATE, MonitScheduleCollection) ->
+.controller 'MainCtrl', ($scope, $log, $uibModal, monitStatus, MonitScheduleCollection) ->
 
     scheduleCollection = new MonitScheduleCollection()
     scheduleCollection.loadAll()
