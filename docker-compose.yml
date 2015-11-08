@@ -21,7 +21,7 @@ parkworker2:
   image: telminov/park-worker-p2
   command:  bash -c "cd /opt/park-worker-p2/parkworker2; python bin/start_workers.py"
   volumes:
-    - ../park-worker-base/parkworker/:/usr/local/lib/python3.5/site-packages/parkworker/
+    - ../park-worker-base/parkworker/:/usr/local/lib/python2.7/dist-packages/parkworker/
     - ../park-worker-p2/:/opt/park-worker-p2/
   links:
     - parkkeeper
