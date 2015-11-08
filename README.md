@@ -65,7 +65,16 @@ bin/start_workers.py
 
 ## Docker compose
 ```
+cd ~/development/github
+git clone https://github.com/telminov/park-keeper.git
+git clone https://github.com/telminov/django-park-keeper.git
+git clone https://github.com/telminov/park-worker-base.git
+git clone https://github.com/telminov/park-worker-p2.git
+git clone https://github.com/telminov/park-worker-p3.git
+
 docker start mongo3 mysql
+
+cd park-keeper/
 docker-compose up
 ```
 
