@@ -1,5 +1,5 @@
 angular.module('parkKeeper')
-.controller 'MonitScheduleLatestResultsCtrl', ($scope, $routeParams, $log, $uibModal,
+.controller 'MonitScheduleLatestResultsCtrl', ($scope, $routeParams, $log,
                                                 MonitSchedule, MONIT_STATUS_UPDATE) ->
     $scope.schedule = MonitSchedule.load($routeParams.id)
 

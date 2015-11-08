@@ -4,6 +4,7 @@
     <thead>
         <tr>
             <th>#</th>
+            <th>Task Id</th>
             <th>Host</th>
             <th>Result time</th>
             <th>Level</th>
@@ -11,11 +12,16 @@
     </thead>
 
     <tbody>
-        <tr ng-repeat="result in schedule.all_hosts">
+        <tr ng-repeat="host in schedule.all_hosts">
             <td>{{ $index + 1 }}</td>
-            <td>{{ result.address }}</td>
-            <td>{{ result.status.result_dt | date:'yyyy-MM-dd HH:mm:ss' }}</td>
-            <td>{{ result.status.level }}</td>
+            <td>
+                <a ng-href="/#/monit_task/{{ host.status.id }}/">
+                    {{ host.status.id }}
+                </a>
+            </td>
+            <td>{{ host.address }}</td>
+            <td>{{ host.status.result_dt | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+            <td>{{ host.status.level }}</td>
         </tr>
     </tbody>
 </table>
