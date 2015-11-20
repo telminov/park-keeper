@@ -2,6 +2,7 @@ django==1.8.5
 sw-python-utils==0.0.3
 sw-django-utils==0.0.9
 pymysql==0.6.7
+pymongo==2.8
 mongoengine==0.10.0
 pyzmq==14.7.0
 aiohttp==0.18.2
