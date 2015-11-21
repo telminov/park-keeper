@@ -24,4 +24,4 @@ MONGODB = {
 }
 
 import mongoengine
-mongoengine.connect(MONGODB['NAME'], host='mongodb://%s:%s/%s' % (MONGODB['HOST'], MONGODB.get('PORT', 27017), MONGODB['NAME']))
+#mongoengine.connect(MONGODB['NAME'], host='mongodb://%s:%s/%s' % (MONGODB['HOST'], MONGODB.get('PORT', 27017), MONGODB['NAME']))
