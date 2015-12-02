@@ -106,6 +106,7 @@ angular.module('parkKeeper')
     this.getWaiting = ->
         return waiting
 
+    # TODO: move out from monitStatus service
     this.getWorkers = ->
         return workers
 

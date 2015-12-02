@@ -1,11 +1,17 @@
 angular.module('parkKeeper')
-.controller 'MainCtrl', ($scope, $log, $uibModal, monitStatus, MonitScheduleCollection) ->
+.controller 'MainCtrl', ($scope, $log, $uibModal, monitStatus, MonitScheduleCollection, workStatus, WorkScheduleCollection) ->
 
-    scheduleCollection = new MonitScheduleCollection()
-    scheduleCollection.loadAll()
-    scheduleCollection.startWatch()
-    $scope.$on('$destroy', scheduleCollection.stopWatch)
-    $scope.monitSchedules = scheduleCollection.schedules
+    monitScheduleCollection = new MonitScheduleCollection()
+    monitScheduleCollection.loadAll()
+    monitScheduleCollection.startWatch()
+    $scope.$on('$destroy', monitScheduleCollection.stopWatch)
+    $scope.monitSchedules = monitScheduleCollection.schedules
+
+    workScheduleCollection = new WorkScheduleCollection()
+    workScheduleCollection.loadAll()
+    workScheduleCollection.startWatch()
+    $scope.$on('$destroy', workScheduleCollection.stopWatch)
+    $scope.workSchedules = workScheduleCollection.schedules
 
     $scope.waitingTasks = monitStatus.getWaiting()
     $scope.monitWorkers = monitStatus.getWorkers()

@@ -1,0 +1,27 @@
+<h2>"{{ schedule.getLabel() }}" work results</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Task Id</th>
+            <th>Host</th>
+            <th>Result time</th>
+            <th>Level</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr ng-repeat="host in schedule.all_hosts">
+            <td>{{ $index + 1 }}</td>
+            <td>
+                <a ng-href="/#/work_task/{{ host.status.id }}/">
+                    {{ host.status.id }}
+                </a>
+            </td>
+            <td>{{ host.address }}</td>
+            <td>{{ host.status.result_dt | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+            <td>{{ host.status.level }}</td>
+        </tr>
+    </tbody>
+</table>

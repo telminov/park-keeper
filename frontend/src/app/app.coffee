@@ -25,11 +25,22 @@ angular.module('parkKeeper', [
       controller: 'MonitScheduleLatestResultsCtrl'
       label: 'Latest results'
     )
-
     .when('/monit_task/:id/',
       templateUrl: 'controllers/monit_task/detail.html'
       controller: 'MonitTaskDetailCtrl'
       label: 'Monit task'
+    )
+
+
+    .when('/work_schedule/:id/latest_result/',
+      templateUrl: 'controllers/work_schedule/latest_results.html'
+      controller: 'WorkScheduleLatestResultsCtrl'
+      label: 'Latest results'
+    )
+    .when('/work_task/:id/',
+      templateUrl: 'controllers/work_task/detail.html'
+      controller: 'WorkTaskDetailCtrl'
+      label: 'Work task'
     )
 
     .when('/login/',
@@ -53,6 +64,9 @@ angular.module('parkKeeper', [
 
 .run (monitStatus) ->
     monitStatus.start()
+
+.run (workStatus) ->
+    workStatus.start()
 
 .config (authConfigProvider, config) ->
     authConfigProvider.setSystemLabel('parkKeeper')

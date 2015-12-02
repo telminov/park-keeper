@@ -1,0 +1,74 @@
+<h2>
+    Task {{ task.id }}
+</h2>
+
+<div class="row">
+    <div class="col-xs-6">
+        <fieldset>
+            <legend>Task general</legend>
+            <div class="row">
+                <div class="col-xs-6">Work name</div>
+                <div class="col-xs-6">{{ task.work_name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">Host address</div>
+                <div class="col-xs-6">{{ task.host_address }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">Schedule Id</div>
+                <div class="col-xs-6">
+                    <a ng-href="/#/work_schedule/{{ task.schedule_id }}/latest_result/">
+                        {{ task.schedule_id }}
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">Create time</div>
+                <div class="col-xs-6">{{ task.dc | date:'yyyy-MM-dd HH:mm:ss' }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">Start time</div>
+                <div class="col-xs-6">{{ task.start_dt | date:'yyyy-MM-dd HH:mm:ss' }}</div>
+            </div>
+        </fieldset>
+        <br>
+
+        <fieldset>
+            <legend>Worker</legend>
+            <div class="row">
+                <div class="col-xs-6">Host</div>
+                <div class="col-xs-6">{{ task.worker.host_name }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">Created</div>
+                <div class="col-xs-6">{{ task.worker.created_dt | date:'yyyy-MM-dd HH:mm:ss' }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">Type</div>
+                <div class="col-xs-6">{{ task.worker.type }}</div>
+            </div>
+        </fieldset>
+    </div>
+
+
+    <div class="col-xs-6">
+        <fieldset>
+            <legend>Result</legend>
+            <div class="row">
+                <div class="col-xs-6">Level</div>
+                <div class="col-xs-6">{{ task.result.level }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">Time</div>
+                <div class="col-xs-6">{{ task.result.dt | date:'yyyy-MM-dd HH:mm:ss' }}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <pre>{{ task.result.extra | json }}</pre>
+                </div>
+            </div>
+
+        </fieldset>
+    </div>
+
+</div>
