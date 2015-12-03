@@ -7,5 +7,5 @@ mongoengine==0.10.0
 pyzmq==14.7.0
 aiohttp==0.18.2
 djangorestframework==3.3.1
-flup6==1.1.1
+gunicorn==19.4.1
 django-park-keeper
